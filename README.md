@@ -18,11 +18,11 @@ Tested only with UNIX (Ubuntu 20.04).
 It is not sophisticated to build this project.
 Clone this with:
 ```
-git lone https://github.com/david-dems/img_server.git --recursive
+git clone https://github.com/david-dems/img_server.git --recursive
 ```
 Just run following commands in base directory of the project:
 ```
-cmkae .
+cmake .
 make
 ```
 Executable file img_server will appear in directory ./bin.
