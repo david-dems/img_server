@@ -4,32 +4,37 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <signal.h>
 
-std::string ImgApplication::text = "Hello world!";
-Poco::Mutex ImgApplication::textLock;
+bool ImgApplication::runtime = true;
 
 #include <Poco/ScopedLock.h>
 
-void ImgApplication::setText(std::string text_upd){
-    //textLock.lock();
-    text = text_upd;
-    //textLock.unlock();
+void sigintHandler(int param){
+    ImgApplication::turnOff();
 }
 
-std::string ImgApplication::getText(){
-    //textLock.lock();
-    return text;
-   //textLock.unlock();
+void ImgApplication::turnOff(){
+    runtime = false;
 }
+
 
 int ImgApplication::main(const std::vector<std::string>&){
 
+    signal(SIGINT, sigintHandler);
+   
     Poco::Net::HTTPServer server(new RequestHandlerFactory, Poco::Net::ServerSocket(Poco::Net::SocketAddress(8000)), new Poco::Net::HTTPServerParams);
+    
     server.start();
+    std::cout << "Server has been started working" << std::endl;
 
-    for(;;){
-    }    
+    while(runtime);   
+
     server.stop();
+
+    std::cout << std::endl;
+    std::cout << "Server is shuted down" << std::endl;
+
     return Application::EXIT_OK;
 
 }

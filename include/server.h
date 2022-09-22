@@ -6,11 +6,8 @@
 
 class ImgApplication : public Poco::Util::ServerApplication{
 public:
-	static std::string getText();
-	static void setText(std::string text_upd);
-
+	static void turnOff();
 protected:
 	int main(const std::vector<std::string> &);
-	static std::string text;
-	static Poco::Mutex textLock;
+	static bool runtime;
 };
