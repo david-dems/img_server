@@ -46,7 +46,7 @@ void imgRequestHandler::handleRequest(Poco::Net::HTTPServerRequest &request, Poc
         }
     } catch (const char *msg){
         response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST, msg);
-	    response.setContentType("text/html");
+	    response.setContentType("text/plain");
 	    std::ostream &error_stream = response.send();
     }
 

@@ -7,7 +7,7 @@
 #include <Poco/URI.h>
 #include <Poco/StringTokenizer.h>
 
-class imgRequestHandler : public Poco::Net::HTTPRequestHandler{
+class NotFoundHandler : public Poco::Net::HTTPRequestHandler{
 public:
     void handleRequest(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
 };
