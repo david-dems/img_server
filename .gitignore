@@ -12,4 +12,5 @@ _deps
 
 bin/
 poco/
-Magic
+settings.json
+*.jpg

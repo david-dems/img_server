@@ -12,11 +12,10 @@
 using namespace cimg_library;
 
 
+
 void imgRequestHandler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response){
-	response.setContentType("image/jpeg");
     unsigned size = request.getContentLength();
 
-	std::ostream &response_img_stream = response.send();
 
     std::istream &request_img_stream = request.stream();
     
@@ -25,17 +24,30 @@ void imgRequestHandler::handleRequest(Poco::Net::HTTPServerRequest &request, Poc
     request_img_stream.read(reinterpret_cast<char*>(buffer_input), size);
     CImg<unsigned char> img;
     
-    if(!img.load_jpeg_buffer(buffer_input, size)){
-        std::ostream &out = response.send();
-        out << "Failed to decode jpeg image.";
-        out.flush();
-        response.setStatus(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
+    JOCTET *buffer_output = new JOCTET[size];
+    try{
+        if (size > 4){
+            //is current byte array valid jpeg?
+            //let's check
+            if (buffer_input[0] != 0xFF || buffer_input[1] != 0xD8 || buffer_input[size-2] != 0xFF || buffer_input[size-1] != 0xD9){
+                throw "File is not a valid JPEG";
+            }else{
+	            std::ostream &response_img_stream = response.send();
+                img.load_jpeg_buffer(buffer_input, size);
+                img.mirror("x");
+                img.save_jpeg_buffer(buffer_output,size,60); 
+                response_img_stream.write(reinterpret_cast<char*>(buffer_output), size);
+	            response.setContentType("image/jpeg");
+                response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+                response_img_stream.flush();
+            }
+        }else{
+            throw "Empty file";
+        }
+    } catch (const char *msg){
+        response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST, msg);
+	    response.setContentType("text/html");
+	    std::ostream &error_stream = response.send();
     }
 
-    img.mirror("x");
-    JOCTET *buffer_output = new JOCTET[size];
-    img.save_jpeg_buffer(buffer_output,size,60); 
-
-    response_img_stream.write(reinterpret_cast<char*>(buffer_output), size);
-    response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
 }

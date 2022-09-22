@@ -28,9 +28,6 @@ int ImgApplication::main(const std::vector<std::string>&){
     server.start();
 
     for(;;){
-        std::string str;
-        if(getline(std::cin, str))
-            break;
     }    
     server.stop();
     return Application::EXIT_OK;
