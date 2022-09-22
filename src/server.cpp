@@ -23,7 +23,7 @@ int ImgApplication::main(const std::vector<std::string>&){
 
     signal(SIGINT, sigintHandler);
    
-    Poco::Net::HTTPServer server(new RequestHandlerFactory, Poco::Net::ServerSocket(Poco::Net::SocketAddress(8000)), new Poco::Net::HTTPServerParams);
+    Poco::Net::HTTPServer server(new RequestHandlerFactory, Poco::Net::ServerSocket(Poco::Net::SocketAddress(5875)), new Poco::Net::HTTPServerParams);
     
     server.start();
     std::cout << "Server has been started working" << std::endl;
