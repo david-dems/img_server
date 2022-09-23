@@ -5,7 +5,7 @@ Server recieves clients request with JPEG image. Image contains in request body 
 This project is implemented with POCO C++ and CImg.
 
 ## Prerequirenments
-- X Window System -- X11
+- X Window System -- libx11-dev
 - libjpeg-turbo8-dev (jpeglib.h jerror.h)
 - Threads library -- pthreads
 - GCC/g++
