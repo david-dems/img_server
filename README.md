@@ -6,7 +6,7 @@ This project is implemented with POCO C++ and CImg.
 
 ## Prerequirenments
 - X Window System -- X11
-- libjpeg (jpeglib.h jerror.h)
+- libjpeg-turbo8-dev (jpeglib.h jerror.h)
 - Threads library -- pthreads
 - GCC/g++
 - CMake
@@ -16,9 +16,13 @@ This project is implemented with POCO C++ and CImg.
 
 Tested only with UNIX (Ubuntu 20.04).
 It is not sophisticated to build this project.
+Clone this with:
+```
+git clone https://github.com/david-dems/img_server.git --recursive
+```
 Just run following commands in base directory of the project:
 ```
-cmkae .
+cmake .
 make
 ```
 Executable file img_server will appear in directory ./bin.
