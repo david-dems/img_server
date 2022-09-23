@@ -22,13 +22,6 @@ add_executable(img_server "")
 add_subdirectory(./src)
 add_subdirectory(./src/handlers)
 
-set(POCO_LIBS 
-    ${CMAKE_CURRENT_SOURCE_DIR}/poco/lib/libPocoFoundation.so 
-    ${CMAKE_CURRENT_SOURCE_DIR}/poco/lib/libPocoUtil.so  
-    ${CMAKE_CURRENT_SOURCE_DIR}/poco/lib/libPocoNet.so 
-)
-
-target_link_libraries( img_server PRIVATE ${POCO_LIBS})
 
 find_package(X11 REQUIRED)
 target_link_libraries( img_server PRIVATE X11 )
@@ -40,6 +33,16 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 find_package(Threads REQUIRED)
 target_link_libraries(img_server PRIVATE Threads::Threads)
+
+find_package(Poco REQUIRED Foundation)
+target_link_libraries(img_server PRIVATE Poco::Foundation)
+
+find_package(Poco REQUIRED Net)
+target_link_libraries(img_server PRIVATE Poco::Net)
+
+find_package(Poco REQUIRED Util)
+target_link_libraries(img_server PRIVATE Poco::Util)
+
 
 set_target_properties(
     PROPERTIES
