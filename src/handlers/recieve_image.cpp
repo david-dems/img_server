@@ -50,4 +50,8 @@ void imgRequestHandler::handleRequest(Poco::Net::HTTPServerRequest &request, Poc
 	    std::ostream &error_stream = response.send();
     }
 
+
+    delete[] buffer_input;
+    delete[] buffer_output;
+
 }
