@@ -6,7 +6,7 @@ This project is implemented with POCO C++ and CImg.
 
 ## Prerequirenments
 - X Window System -- X11
-- libjpeg (jpeglib.h jerror.h)
+- libjpeg-turbo8-dev (jpeglib.h jerror.h)
 - Threads library -- pthreads
 - GCC/g++
 - CMake
