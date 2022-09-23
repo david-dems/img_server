@@ -6,7 +6,7 @@
 Poco::Net::HTTPRequestHandler* RequestHandlerFactory::createRequestHandler(const Poco::Net::HTTPServerRequest &request){
 	Poco::URI uri(request.getURI());
     std::string uriString = uri.toString();
-    if (uriString.find("/") == 0 && uriString.size() == 1)
+    if (uriString == "/")
         return new imgRequestHandler; 
     return new NotFoundHandler;
 }

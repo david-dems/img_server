@@ -28,7 +28,8 @@ int ImgApplication::main(const std::vector<std::string>&){
     server.start();
     std::cout << "Server has been started working" << std::endl;
 
-    while(runtime);   
+    while(runtime)
+        pause();
 
     server.stop();
 

@@ -12,9 +12,7 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories( 
     ./include 
     ./include/handlers 
-    ./poco/include 
     ./CImg 
-    ${X11_INCLUDE_DIR} 
     )
 
 add_executable(img_server "")
