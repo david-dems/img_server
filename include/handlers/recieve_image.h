@@ -1,4 +1,5 @@
 #pragma once
+#include <stdexcept>
 
 #include <Poco/Net/HTTPServerRequest.h>
 #include <Poco/Net/HTTPRequestHandler.h>

@@ -30,7 +30,7 @@ void imgRequestHandler::handleRequest(Poco::Net::HTTPServerRequest &request, Poc
             //is current byte array valid jpeg?
             //let's check
             if (buffer_input[0] != 0xFF || buffer_input[1] != 0xD8 || buffer_input[size-2] != 0xFF || buffer_input[size-1] != 0xD9){
-                throw "File is not a valid JPEG";
+                throw std::runtime_error("File is not a valid JPEG");
             }else{
 	            std::ostream &response_img_stream = response.send();
                 img.load_jpeg_buffer(buffer_input, size);
@@ -42,10 +42,10 @@ void imgRequestHandler::handleRequest(Poco::Net::HTTPServerRequest &request, Poc
                 response_img_stream.flush();
             }
         }else{
-            throw "Empty file";
+            throw std::runtime_error(std::string("Empty file"));
         }
-    } catch (const char *msg){
-        response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST, msg);
+    } catch (std::exception &excp){
+        response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST, excp.what());
 	    response.setContentType("text/plain");
 	    std::ostream &error_stream = response.send();
     }
